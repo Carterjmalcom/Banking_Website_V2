@@ -117,12 +117,6 @@ app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
 
 app.delete('/user/:name/:powers', async (req, res) => {
     try {
-        // console.log req.params
-        // console.log(req.params);
-        // then cache returned name and email
-        // as destructured variables from params
-        // console.log(req.params.name);
-        // console.log(req.params.email);
         const { name, powers } = req.params
         // initalize an empty array of 'users'
         let users = [];
