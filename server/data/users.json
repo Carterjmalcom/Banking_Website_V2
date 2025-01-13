@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Venture",
+    "powers": "Drill",
+    "balance": 240
+  },
+  {
+    "name": "Venture",
+    "powers": "Drill"
+  },
+  {
+    "name": "winton",
+    "powers": "monkey"
+  },
+  {
+    "name": "tracer",
+    "powers": "blink"
+  },
+  {
+    "name": "JC",
+    "powers": "human"
+  },
+  {
+    "username": "jc",
+    "password": "123",
+    "balance": 182
+  },
+  {
+    "username": "jc1",
+    "password": "12",
+    "balance": 17
+  },
+  {
+    "username": "bleh",
+    "password": "09",
+    "balance": 1
+  }
+]
