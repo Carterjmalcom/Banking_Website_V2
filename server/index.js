@@ -17,7 +17,7 @@ app.use(express.json()); // Parse JSON bodies
 // Routes
 
 // Home route
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.sendFile('index.html', { root: clientPath });
 });
 
