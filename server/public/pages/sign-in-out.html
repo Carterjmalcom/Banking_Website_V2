@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 * {
     margin:0;
@@ -17,10 +18,24 @@
     background-color: beige;
 }
 
+main {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  min-height: 80vh;
+  /* padding: 2rem; */
+  /* width:100%; */
+}
+
 .container {
-    max-width: 100%;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+    width: 100%;
     height:100%;
-    margin: 50px auto;
+    /* margin: 50px auto; */
     padding: 20px;
     background: beige;
     border-radius: 5px;
@@ -29,16 +44,22 @@
 
 h1 {
     text-align: center;
-    color: #333;
+    color: white;
+    background-color: #4a90e2;
+    /* border-radius: 25px; */
+    font-size: 3rem;
+    width: 100%;
 }
 
 nav {
+    background:black;
     text-align: center;
     margin-bottom: 20px;
+    position: sticky;
 }
 
 nav button {
-    /* width:350px; */
+    width:200px;
     margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
@@ -54,9 +75,11 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 2rem;
 }
 
 label {
+    display:block;
     font-weight: bold;
 }
 
@@ -81,7 +104,7 @@ button:hover {
 }
 
 p {
-    color: green;
+    color: white;
     font-weight: bold;
     text-align: center;
 }
@@ -105,29 +128,92 @@ button#sign-out {
 button#sign-out:hover {
     background-color: #e60000;
 }
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+#burger-icon {
+    display: none; /* Hide the hamburger icon by default */
+}
+
+@media (min-width: 375px) and (max-width: 768px) {
+    nav {
+        font-size: 1.1rem;
+        background-color: #fff;
+    }
+    #burger-icon {
+        display: block;
+    }
+
+    .menu {
+        display: none; /* Hide the menu by default */
+        flex-direction: column; /* Stack menu items vertically when shown */
+        background-color: #333; /* Optional: Background for the menu */
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        width: 200px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu.active {
+        display: flex; /* Show the menu when toggled */
+    }
+
+    .menu button {
+        background: none;
+        border: none;
+        color: white;
+        text-align: left;
+        padding: 10px 20px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .menu button:hover {
+        background-color: #444;
+    }
+
+}
     </style>
 </head>
 <body>
-    <!-- <nav>
-        <a href="/money">form</a>
-        <a href="/sign-in-out">sign in/out</a>
-        <a href="/home">home</a>
-        <a href="sign-up">sign up</a>
-    </nav> -->
-    
-
+<main>
+    <h1>Bank App</h1>
     <div class="container">
-
-        <h1>Bank App</h1>
         <!-- Navigation -->
         <nav>
+            <div id="my-links" class="menu">
             <button id="go-to-profile" disabled>Profile</button>
             <button id="go-to-sign-up">Sign Up</button>
-          <button id="go-to-sign-in">Sign In</button>
-          <button id="go-to-deposit" disabled>Deposit</button>
-          <button id="go-to-withdraw" disabled>Withdraw</button>
-          <button id="sign-out" disabled>Sign Out</button> <!-- New Sign Out Button -->
+            <button id="go-to-sign-in">Sign In</button>
+            <button id="go-to-deposit" disabled>Deposit</button>
+            <button id="go-to-withdraw" disabled>Withdraw</button>
+            <button id="sign-out" disabled>Sign Out</button>
+            </div>
+            <button id="burger-icon">
+                <i class="fa fa-bars"></i>
+            </button>
             </nav>
+          
             <div id="balance-section">
                 <h3 id="balance-display">Current Balance: $0.00</h3>
             </div>
@@ -136,13 +222,6 @@ button#sign-out:hover {
         <!-- Profile Page -->
         <div id="profile-page" class="form-container hidden">
             <h2>Profile</h2>
-            <!-- <form>
-                <label for="deposit-amount">Amount:</label>
-                <input type="number" id="deposit-amount" required>
-
-                <button type="submit">Deposit</button>
-            </form>
-            <p id="deposit-message"></p> -->
         </div>
 
         <!-- Sign-Up Form -->
@@ -199,6 +278,10 @@ button#sign-out:hover {
             <p id="withdraw-message"></p>
         </div>
     </div>
+</main>
+    <footer>
+        <p>Banking App © 2025 | <a href="#">Contact Support</a></p>
+      </footer>
 
     <script>
         // Switching between forms
@@ -391,6 +474,15 @@ document.querySelector('#sign-in-form form').addEventListener('submit', async (e
     } else {
         document.getElementById('sign-in-message').innerText = 'Invalid credentials';
     }
+});
+
+const hamburger = document.getElementById('burger-icon');
+const menu = document.getElementById('my-links');
+
+// Toggle the hamburger menu
+document.getElementById('burger-icon').addEventListener('click', () => {
+    const menu = document.getElementById('my-links');
+    menu.classList.toggle('active');
 });
 
 
