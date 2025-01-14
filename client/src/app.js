@@ -181,7 +181,8 @@
             if (response.ok) {
                 const result = await response.json();
                 currentBalance = result.balance;
-                updateBalanceDisplay();
+                const balanceElement = document.getElementById('balance-display');
+                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 alert('Deposit successful!');
             } else {
                 alert('Error processing deposit');
@@ -202,7 +203,8 @@
             if (response.ok) {
                 const result = await response.json();
                 currentBalance = result.balance;
-                updateBalanceDisplay();
+                const balanceElement = document.getElementById('balance-display');
+                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 alert('Withdrawal successful!');
             } else {
                 const error = await response.json();
