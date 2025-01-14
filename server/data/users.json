@@ -21,15 +21,14 @@
     "powers": "human"
   },
   {
-    "username": "jc",
-    "password": "123",
+    "username": "jc91",
+    "password": "91",
     "balance": 206
   },
   {
-    "username": "jc1000",
-    "password": "12",
-    "balance": 17,
-    
+    "username": "tester1",
+    "password": "31",
+    "balance": 17
   },
   {
     "username": "bleh",

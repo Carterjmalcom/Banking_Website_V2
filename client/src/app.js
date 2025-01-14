@@ -208,17 +208,26 @@
         .getElementById("update-form").addEventListener("submit", async (e) => {
             e.preventDefault();
             const username = document.getElementById("currentUsername").value;
+            const password = document.getElementById("currentPassword").value;
             const newUser = document.getElementById("newUser").value;
+            const newPassword = document.getElementById("newPassword").value;
             console.log('Current user:', { currentUser});
         console.log('New user data:', { newUser});
+
           try {
-            const response = await fetch(`/update-user/${username}`,{
+            const response = await fetch(`/update-user/${username}/${password}`,{
                 method: "PUT",
                 headers: {
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, newUser }),
+                body: JSON.stringify({ username, newUser, password, newPassword }),
             });
+            if (response.ok) {
+                alert('Update successful');
+
+            const result = await response.json();
+            document.getElementById('update-message').innerText = result.message;
+            }
             const data = await response.json();
             console.log(data);
             // renderUsers();
