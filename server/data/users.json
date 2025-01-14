@@ -4,12 +4,119 @@
     "password": "test",
     "balance": 300,
     "transactions": [
-      {
-        "id": "001",
-        "name": "Chick-Fil-A",
-        "category": "Fast Food",
-        "price": 11.85
-      }
-    ]
+  {
+    "id": "001",
+    "name": "Chick-Fil-A",
+    "category": "Fast Food",
+    "price": 11.85,
+    "date": "11/12/2024"
+  },
+  {
+    "id": "002",
+    "name": "McDonald's",
+    "category": "Fast Food",
+    "price": 9.45,
+    "date": "12/01/2024"
+  },
+  {
+    "id": "003",
+    "name": "Nike Store",
+    "category": "Clothing",
+    "price": 79.99,
+    "date": "12/02/2024"
+  },
+  {
+    "id": "004",
+    "name": "Shell Gas Station",
+    "category": "Gas",
+    "price": 40.50,
+    "date": "12/05/2024"
+  },
+  {
+    "id": "005",
+    "name": "Walmart",
+    "category": "Shopping",
+    "price": 53.75,
+    "date": "12/06/2024"
+  },
+  {
+    "id": "008",
+    "name": "Target",
+    "category": "Shopping",
+    "price": 45.25,
+    "date": "12/12/2024"
+  },
+  {
+    "id": "009",
+    "name": "H&M",
+    "category": "Clothing",
+    "price": 30.00,
+    "date": "12/14/2024"
+  },
+  {
+    "id": "010",
+    "name": "BP Gas Station",
+    "category": "Gas",
+    "price": 38.25,
+    "date": "12/15/2024"
+  },
+  {
+    "id": "011",
+    "name": "Amazon",
+    "category": "Shopping",
+    "price": 120.50,
+    "date": "12/18/2024"
+  },
+  {
+    "id": "012",
+    "name": "Lululemon",
+    "category": "Clothing",
+    "price": 95.00,
+    "date": "12/20/2024"
+  },
+  {
+    "id": "013",
+    "name": "Target",
+    "category": "Shopping",
+    "price": 78.90,
+    "date": "12/22/2024"
+  },
+  {
+    "id": "014",
+    "name": "Costco",
+    "category": "Shopping",
+    "price": 150.00,
+    "date": "12/24/2024"
+  },
+  {
+    "id": "016",
+    "name": "Sam's Club",
+    "category": "Shopping",
+    "price": 120.50,
+    "date": "12/28/2024"
+  },
+  {
+    "id": "017",
+    "name": "Verizon Store",
+    "category": "Electronics",
+    "price": 229.99,
+    "date": "12/30/2024"
+  },
+  {
+    "id": "018",
+    "name": "Chevron Gas Station",
+    "category": "Gas",
+    "price": 45.00,
+    "date": "01/02/2025"
+  },
+  {
+    "id": "019",
+    "name": "Fabletics",
+    "category": "Clothing",
+    "price": 49.99,
+    "date": "01/05/2025"
+  }
+]
+
   }
 ]
