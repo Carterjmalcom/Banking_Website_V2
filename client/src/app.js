@@ -14,6 +14,9 @@
         document.getElementById('go-to-profile').addEventListener('click', () => {
             showForm('profile-page');
         });
+        document.getElementById('go-to-update').addEventListener('click', () => {
+            showForm('update-form')
+        })
         
         
         // Show form function
@@ -120,7 +123,6 @@
             updateBalanceDisplay(); // Update the displayed balance
             alert('You have signed out successfully!');
         
-            // Optional: Provide feedback that no user is signed in
             document.getElementById('sign-in-message').innerText = 'No user signed in.';
             fetch('/sign-out', {
                 method: 'POST',
@@ -145,6 +147,7 @@
         
         // Cache username and balance
         let currentUser = null;
+        
         let currentBalance = 0;
         
         // Object to store user balances
@@ -200,7 +203,30 @@
             }
         });
         
-        
+        // Update
+        document
+        .getElementById("update-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("currentUsername").value;
+            const newUser = document.getElementById("newUser").value;
+            console.log('Current user:', { currentUser});
+        console.log('New user data:', { newUser});
+          try {
+            const response = await fetch(`/update-user/${username}`,{
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, newUser }),
+            });
+            const data = await response.json();
+            console.log(data);
+            // renderUsers();
+            // alert("Message is: " + data.message);
+          } catch (error) {
+            alert("Error updating user: " + error.message);
+          }
+        });
         
         const hamburger = document.getElementById('burger-icon');
         const menu = document.getElementById('my-links');

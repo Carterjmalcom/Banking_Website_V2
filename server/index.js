@@ -109,25 +109,25 @@ app.post('/submit-form', async (req, res) => {
 });
 
 // Update user route (currently just logs and sends a response)
-app.put('/update-user/:currentName/:currentPowers', async (req, res) => {
+app.put('/update-user/:username', async (req, res) => {
     try {
-        const { currentName, currentPowers } = req.params;
-        const { newName, newPowers } = req.body;
-        console.log('Current user:', { currentName, currentPowers });
-        console.log('New user data:', { newName, newPowers });
+        const { username } = req.params;
+        const { newUser} = req.body;
+        console.log('Current user:', { username});
+        console.log('New user data:', { newUser});
         const data = await fs.readFile(dataPath, 'utf8');
         if (data) {
             let users = JSON.parse(data);
-            const userIndex = users.findIndex(user => user.name === currentName && user.powers === currentPowers);
+            const userIndex = users.findIndex(user => user.username === username);
             console.log(userIndex);
             if (userIndex === -1) {
                 return res.status(404).json({ message: "User not found" })
             }
-            users[userIndex] = { ...users[userIndex], name: newName, powers: newPowers };
+            users[userIndex] = { ...users[userIndex], username: newUser};
             console.log(users);
             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
 
-            res.status(200).json({ message: `You sent ${newName} and ${newPowers}` });
+            res.status(200).json({ message: `You sent ${newUser}` });
         }
     } catch (error) {
         console.error('Error updating user:', error);
