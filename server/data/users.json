@@ -1,43 +1,107 @@
 [
   {
-    "name": "Venture",
-    "powers": "Drill",
-    "balance": 240
-  },
-  {
-    "name": "Venture",
-    "powers": "Drill"
-  },
-  {
-    "name": "winton",
-    "powers": "monkey"
-  },
-  {
-    "name": "tracer",
-    "powers": "blink"
-  },
-  {
-    "name": "JC",
-    "powers": "human"
-  },
-  {
-    "username": "jc91",
-    "password": "91",
-    "balance": 206
-  },
-  {
-    "username": "tester1",
-    "password": "31",
-    "balance": 17
-  },
-  {
-    "username": "bleh",
-    "password": "09",
-    "balance": 1
-  },
-  {
-    "username": "Carter2006",
-    "password": "Orange",
-    "balance": 2000
+    "username": "test",
+    "password": "test",
+    "balance": 2000,
+    "transactions": [
+      {
+        "id": "12jds3Ns65",
+        "name": "Chick-Fil-A",
+        "category": "Fast Food",
+        "price": "11.23",
+        "date": "11/12/24"
+      },
+      {
+        "id": "34klw9Xg12",
+        "name": "McDonald's",
+        "category": "Fast Food",
+        "price": "8.99",
+        "date": "12/01/24"
+      },
+      {
+        "id": "98bs2PjU45",
+        "name": "Target",
+        "category": "Shopping",
+        "price": "45.30",
+        "date": "12/02/24"
+      },
+      {
+        "id": "78kdt5Ds31",
+        "name": "Chipotle",
+        "category": "Fast Food",
+        "price": "12.45",
+        "date": "12/03/24"
+      },
+      {
+        "id": "56wer7Ln90",
+        "name": "Chevron",
+        "category": "Gas",
+        "price": "35.20",
+        "date": "12/04/24"
+      },
+      {
+        "id": "23mnt4Jw81",
+        "name": "Walmart",
+        "category": "Shopping",
+        "price": "82.50",
+        "date": "12/05/24"
+      },
+      {
+        "id": "67ykj2Ub15",
+        "name": "Panda Express",
+        "category": "Fast Food",
+        "price": "10.00",
+        "date": "12/06/24"
+      },
+      {
+        "id": "99fgt3Hp04",
+        "name": "H&M",
+        "category": "Clothes",
+        "price": "58.70",
+        "date": "12/07/24"
+      },
+      {
+        "id": "40vbx1Uw32",
+        "name": "AMC Theaters",
+        "category": "Entertainment",
+        "price": "22.50",
+        "date": "12/08/24"
+      },
+      {
+        "id": "52zmn8Np76",
+        "name": "Domino's Pizza",
+        "category": "Fast Food",
+        "price": "15.20",
+        "date": "12/09/24"
+      },
+      {
+        "id": "21jkk7Os41",
+        "name": "Best Buy",
+        "category": "Shopping",
+        "price": "320.10",
+        "date": "12/10/24"
+      },
+      {
+        "id": "86hdw5Lq13",
+        "name": "KFC",
+        "category": "Fast Food",
+        "price": "9.99",
+        "date": "12/11/24"
+      },
+      {
+        "id": "65qrk3Jv21",
+        "name": "Macy's",
+        "category": "Clothes",
+        "price": "102.40",
+        "date": "12/12/24"
+      },
+      {
+        "id": "74lvm9Pj84",
+        "name": "Netflix",
+        "category": "Entertainment",
+        "price": "15.99",
+        "date": "12/13/24"
+      }
+    ]
   }
 ]
