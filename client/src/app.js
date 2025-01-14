@@ -118,7 +118,6 @@ const userBalances = {};
 
 // Show balance in the UI
 
-
 // Deposit money
 document.getElementById('deposit-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -164,3 +163,11 @@ document.getElementById('withdraw-form').addEventListener('submit', async (e) =>
     }
 });
 
+const hamburger = document.getElementById('burger-icon');
+const menu = document.getElementById('my-links');
+
+// Toggle the hamburger menu
+document.getElementById('burger-icon').addEventListener('click', () => {
+    const menu = document.getElementById('my-links');
+    menu.classList.toggle('active');
+});
