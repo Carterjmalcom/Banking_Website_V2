@@ -82,7 +82,8 @@ document.getElementById('sign-out').addEventListener('click', () => {
     // Perform sign-out actions
     currentUser = null; // Clear the current user
     currentBalance = 0; // Reset the balance
-    updateBalanceDisplay(); // Update the displayed balance
+    const balanceElement = document.getElementById('balance-display');
+    balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
     alert('You have signed out successfully!');
 
     // Optional: Provide feedback that no user is signed in
@@ -154,38 +155,12 @@ document.getElementById('withdraw-form').addEventListener('submit', async (e) =>
     if (response.ok) {
         const result = await response.json();
         currentBalance = result.balance;
-        updateBalanceDisplay();
+        const balanceElement = document.getElementById('balance-display');
+        balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
         alert('Withdrawal successful!');
     } else {
         const error = await response.json();
         alert(error.message || 'Error processing withdrawal');
-    }
-});
-
-// After successful sign-in
-document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = document.getElementById('sign-in-username').value;
-    const password = document.getElementById('sign-in-password').value;
-
-    const response = await fetch('/sign-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-    });
-    const result = await response.json();
-    if (response.ok) {
-        alert('Sign-in successful');
-        // Enable restricted options after sign-in
-        document.getElementById('go-to-deposit').disabled = false;
-        document.getElementById('go-to-withdraw').disabled = false;
-        document.getElementById('sign-out').disabled = false; // Enable Sign Out button
-        currentUser = username;
-        currentBalance = result.balance;
-        updateBalanceDisplay();
-        alert('Sign-in successful');
-    } else {
-        document.getElementById('sign-in-message').innerText = 'Invalid credentials';
     }
 });
 
