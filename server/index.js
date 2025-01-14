@@ -37,6 +37,26 @@ app.get('/users', async (req, res) => {
     }
 });
 
+app.post('/user-info', async (req, res) => {
+    try {
+        const {username} = req.body
+        console.log(username)
+        const data = await fs.readFile(dataPath, 'utf8');
+
+        const users = JSON.parse(data);
+        const userIndex = users.findIndex(user => user.username === username );
+        console.log(userIndex)
+        if (!users) {
+            throw new Error("Error no users available");
+        }
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Problem getting users" + error.message);
+        res.status(500).json({ error: "Problem reading users" });
+    }
+});
+
+
 // Form route
 app.get('/home', (req, res) => {
     res.sendFile('pages/home.html', { root: serverPublic });
