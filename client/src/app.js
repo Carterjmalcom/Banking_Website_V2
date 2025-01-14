@@ -40,13 +40,42 @@
         });
         
         // Sign-In Logic
+        // document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
+        //     e.preventDefault();
+        //     const username = document.getElementById('sign-in-username').value;
+        //     const password = document.getElementById('sign-in-password').value;
+        //     if (username) {
+        //         currentUser = username;
+        //         document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
+        //     } else {
+        //         alert('Please enter a username to sign in.');
+        //     }
+        
+        //     const response = await fetch('/sign-in', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ username, password }),
+        //     });
+        
+        //     const result = await response.json();
+        //     if (response.ok) {
+        //         alert('Sign-in successful');
+        //         document.getElementById('go-to-deposit').disabled = false;
+        //         document.getElementById('go-to-withdraw').disabled = false;
+        //         document.getElementById('go-to-profile').disabled = false;
+        //         document.getElementById('balance-display').classList.remove('hidden');
+        //     } else {
+        //         document.getElementById('sign-in-message').innerText = result.message;
+        //     }
+        // });
+
+        // Sign-In Logic
         document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const username = document.getElementById('sign-in-username').value;
             const password = document.getElementById('sign-in-password').value;
             if (username) {
                 currentUser = username;
-                // Display the retrieved balance
                 document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
             } else {
                 alert('Please enter a username to sign in.');
@@ -57,18 +86,31 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             });
-        
-            const result = await response.json();
-            if (response.ok) {
-                alert('Sign-in successful');
-                document.getElementById('go-to-deposit').disabled = false;
-                document.getElementById('go-to-withdraw').disabled = false;
-                document.getElementById('go-to-profile').disabled = false;
+
+    const result = await response.json();
+    if (response.ok) {
+        alert('Sign-in successful');
+        document.getElementById('go-to-deposit').disabled = false;
+        document.getElementById('go-to-withdraw').disabled = false;
+        document.getElementById('go-to-profile').disabled = false;
                 document.getElementById('balance-display').classList.remove('hidden');
-            } else {
-                document.getElementById('sign-in-message').innerText = result.message;
-            }
+        const userResponse = await fetch('/user-info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username}),
         });
+        if (userResponse.ok) {
+            const depositResult = await userResponse.json();
+            let currentBalance = depositResult.balance
+            console.log(depositResult)
+            const balanceElement = document.getElementById('balance-display');
+            balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+        }
+       
+    } else {
+        document.getElementById('sign-in-message').innerText = result.message;
+    }
+});
         
         // Sign Out Button Logic
         document.getElementById('sign-out').addEventListener('click', () => {

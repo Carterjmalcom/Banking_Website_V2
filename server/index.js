@@ -49,7 +49,7 @@ app.post('/user-info', async (req, res) => {
         if (!users) {
             throw new Error("Error no users available");
         }
-        res.status(200).json(users);
+        res.status(200).json(users[userIndex]);
     } catch (error) {
         console.error("Problem getting users" + error.message);
         res.status(500).json({ error: "Problem reading users" });
