@@ -69,6 +69,8 @@
                 document.getElementById('go-to-withdraw').disabled = false;
                 document.getElementById('go-to-profile').disabled = false;
                 document.getElementById('balance-display').classList.remove('hidden');
+                document.getElementById('go-to-sign-in').disabled = true
+                document.getElementById('go-to-sign-up').disabled = true
                 const userResponse = await fetch('/user-info', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
