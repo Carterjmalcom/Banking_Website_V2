@@ -12,6 +12,11 @@ document.getElementById('go-to-withdraw').addEventListener('click', () => {
     showForm('withdraw-form');
 });
 
+function updateBalanceDisplay(bal) {
+    const balanceElement = document.getElementById('balance-display');
+    balanceElement.innerText = `Current Balance: $${bal.toFixed(2)}`;
+}
+
 // Show form function
 function showForm(formId) {
     document.querySelectorAll('.form-container').forEach(form => form.classList.add('hidden'));
@@ -41,15 +46,7 @@ document.querySelector('#sign-in-form form').addEventListener('submit', async (e
     const username = document.getElementById('sign-in-username').value;
     const password = document.getElementById('sign-in-password').value;
     if (username) {
-        currentUser = username;
-
-        // Retrieve balance for this user or set it to 0 if they are new
-        if (!userBalances[currentUser]) {
-            userBalances[currentUser] = 0; // Initialize balance for new user
-        }
-        currentBalance = userBalances[currentUser];
-
-        updateBalanceDisplay(); // Display the retrieved balance
+        let currentUser = username;
         document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
     } else {
         alert('Please enter a username to sign in.');
@@ -61,10 +58,20 @@ document.querySelector('#sign-in-form form').addEventListener('submit', async (e
     });
 
     const result = await response.json();
+    // const userResult = await userResponse.json();
     if (response.ok) {
         alert('Sign-in successful');
         document.getElementById('go-to-deposit').disabled = false;
         document.getElementById('go-to-withdraw').disabled = false;
+        const userResponse = await fetch('/user-info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username}),
+        });
+        const depositResult = await userResponse.json();
+        let currentBalance = depositResult.balance
+        const balanceElement = document.getElementById('balance-display');
+        balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
     } else {
         document.getElementById('sign-in-message').innerText = result.message;
     }
@@ -109,10 +116,6 @@ let currentBalance = 0;
 const userBalances = {};
 
 // Show balance in the UI
-function updateBalanceDisplay() {
-    const balanceElement = document.getElementById('balance-display');
-    balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
-}
 
 
 // Deposit money
