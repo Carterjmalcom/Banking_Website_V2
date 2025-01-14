@@ -132,7 +132,8 @@ document.getElementById('deposit-form').addEventListener('submit', async (e) => 
     if (response.ok) {
         const result = await response.json();
         currentBalance = result.balance;
-        updateBalanceDisplay();
+        const balanceElement = document.getElementById('balance-display');
+        balanceElement.innerText = `Current Balance: $${bal.toFixed(2)}`;
         alert('Deposit successful!');
     } else {
         alert('Error processing deposit');

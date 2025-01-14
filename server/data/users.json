@@ -34,5 +34,10 @@
     "username": "bleh",
     "password": "09",
     "balance": 1
+  },
+  {
+    "username": "Carter2006",
+    "password": "Orange",
+    "balance": 100
   }
 ]
