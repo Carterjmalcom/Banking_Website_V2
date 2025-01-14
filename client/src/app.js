@@ -15,7 +15,10 @@
             showForm('profile-page');
         });
         
-        
+
+
+
+
         // Show form function
         function showForm(formId) {
             document.querySelectorAll('.form-container').forEach(form => form.classList.add('hidden'));
@@ -39,36 +42,6 @@
             //---//
         });
         
-        // Sign-In Logic
-        // document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
-        //     e.preventDefault();
-        //     const username = document.getElementById('sign-in-username').value;
-        //     const password = document.getElementById('sign-in-password').value;
-        //     if (username) {
-        //         currentUser = username;
-        //         document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
-        //     } else {
-        //         alert('Please enter a username to sign in.');
-        //     }
-        
-        //     const response = await fetch('/sign-in', {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ username, password }),
-        //     });
-        
-        //     const result = await response.json();
-        //     if (response.ok) {
-        //         alert('Sign-in successful');
-        //         document.getElementById('go-to-deposit').disabled = false;
-        //         document.getElementById('go-to-withdraw').disabled = false;
-        //         document.getElementById('go-to-profile').disabled = false;
-        //         document.getElementById('balance-display').classList.remove('hidden');
-        //     } else {
-        //         document.getElementById('sign-in-message').innerText = result.message;
-        //     }
-        // });
-
         // Sign-In Logic
         document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -105,7 +78,34 @@
             console.log(depositResult)
             const balanceElement = document.getElementById('balance-display');
             balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+            let transactions = depositResult.transactions
+                console.log("transactions")
+                console.log(transactions)
+            const profilePage = document.getElementById('profile-page')
+            const div = document.createElement("div");
+            // ID
+            const idP = document.createElement("div");
+            const idNode = document.createTextNode(`ID: ${transactions[0].id}`);
+            idP.appendChild(idNode);
+            div.appendChild(idP)
+            profilePage.appendChild(div);
+            // NAME
+            const nameP = document.createElement("div");
+            const nameNode = document.createTextNode(`Name: ${transactions[0].name}`);
+            nameP.appendChild(nameNode);
+            div.appendChild(nameP)
+            // CATEGORY
+            const categoryP = document.createElement("div");
+            const categoryNode = document.createTextNode(`Category: ${transactions[0].category}`);
+            categoryP.appendChild(categoryNode);
+            div.appendChild(categoryP)
+            // PRICE
+            const priceP = document.createElement("div");
+            const priceNode = document.createTextNode(`Price: ${transactions[0].price}`);
+            priceP.appendChild(priceNode);
+            div.appendChild(priceP)
         }
+        
        
     } else {
         document.getElementById('sign-in-message').innerText = result.message;
