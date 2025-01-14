@@ -345,14 +345,6 @@ document.querySelector('#sign-in-form form').addEventListener('submit', async (e
     const password = document.getElementById('sign-in-password').value;
     if (username) {
         currentUser = username;
-
-        // Retrieve balance for this user or set it to 0 if they are new
-        if (!userBalances[currentUser]) {
-            userBalances[currentUser] = 0;
-        }
-        currentBalance = userBalances[currentUser];
-
-        updateBalanceDisplay(); 
         // Display the retrieved balance
         document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
     } else {
@@ -463,33 +455,6 @@ document.getElementById('withdraw-form').addEventListener('submit', async (e) =>
     } else {
         const error = await response.json();
         alert(error.message || 'Error processing withdrawal');
-    }
-});
-
-// After successful sign-in
-document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = document.getElementById('sign-in-username').value;
-    const password = document.getElementById('sign-in-password').value;
-
-    const response = await fetch('/sign-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-    });
-    const result = await response.json();
-    if (response.ok) {
-        alert('Sign-in successful');
-        // Enable restricted options after sign-in
-        document.getElementById('go-to-deposit').disabled = false;
-        document.getElementById('go-to-withdraw').disabled = false;
-        document.getElementById('sign-out').disabled = false; // Enable Sign Out button
-        currentUser = username;
-        currentBalance = result.balance;
-        updateBalanceDisplay();
-        alert('Sign-in successful');
-    } else {
-        document.getElementById('sign-in-message').innerText = 'Invalid credentials';
     }
 });
 
