@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+  />
     <style>
 * {
     margin:0;
@@ -15,7 +19,7 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: beige;
+    background-color: #9fa8da;
 }
 
 main {
@@ -37,9 +41,9 @@ main {
     height:100%;
     /* margin: 50px auto; */
     padding: 20px;
-    background: beige;
+    background: #9fa8da;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 h1 {
@@ -62,6 +66,7 @@ nav button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border:1px solid black;
 }
 
 nav button:disabled {
@@ -81,6 +86,9 @@ label {
     font-weight: bold;
 }
 
+input {
+    border-radius: 10px;
+}
 input, button {
     padding: 10px;
     font-size: 16px;
@@ -216,12 +224,13 @@ footer a:hover {
         <nav>
             <h1>ENTER GOOD SITE NAME HERE</h1>
             <div id="my-links" class="menu">
-            <button id="go-to-profile" disabled>Profile</button>
+            <button id="go-to-profile" disabled>
+                <i class="bx bxs-user-circle"></i>Profile</button>
             <button id="go-to-sign-up">Sign Up</button>
             <button id="go-to-sign-in">Sign In</button>
-            <button id="go-to-deposit" disabled>Deposit</button>
-            <button id="go-to-withdraw" disabled>Withdraw</button>
-            <button id="sign-out" disabled>Sign Out</button>
+            <button id="go-to-deposit" disabled><i class='bx bx-transfer'></i>Deposit</button>
+            <button id="go-to-withdraw" disabled><i class='bx bx-transfer'></i>Withdraw</button>
+            <button id="sign-out" disabled><i class='bx bx-chevron-right logoutButton'></i>Sign Out</button>
             </div>
             <button id="burger-icon">
                 <i class="fa fa-bars"></i>
@@ -241,6 +250,7 @@ footer a:hover {
         <!-- Sign-Up Form -->
         <div id="sign-up-form" class="form-container">
             <h2>Sign Up</h2>
+            <br>
             <form>
                 <label for="sign-up-username">Username:</label>
                 <input type="text" id="sign-up-username" required>
@@ -256,6 +266,7 @@ footer a:hover {
         <!-- Sign-In Form -->
         <div id="sign-in-form" class="form-container hidden">
             <h2>Sign In</h2>
+            <br>
             <form>
                 <label for="sign-in-username">Username:</label>
                 <input type="text" id="sign-in-username" required>
