@@ -246,6 +246,7 @@ footer a:hover {
             <button id="go-to-deposit" disabled><i class='bx bx-transfer'></i>Deposit</button>
             <button id="go-to-withdraw" disabled><i class='bx bx-transfer'></i>Withdraw</button>
             <button id="sign-out" disabled><i class='bx bx-chevron-right logoutButton'></i>Sign Out</button>
+            <button id="go-to-update">Update</button>
             </div>
             <button id="burger-icon">
                 <i class="fa fa-bars"></i>
@@ -318,6 +319,23 @@ footer a:hover {
                 <button type="submit">Withdraw</button>
             </form>
             <p id="withdraw-message"></p>
+        </div>
+
+        <div >
+            <h2>Update</h2>
+            <form id="update-form">
+                <label for="currentUsername">Username:</label>
+                <input type="text" id="currentUsername" required>
+                <label for="update-password">Password:</label>
+                <input type="password" id="update-password" required>
+
+                <label for="newUser">New Username:</label>
+                <input type="text" id="newUser" required />
+                <label for="newPassword">New Password:</label>
+                <input type="text" id="newPassword" required />
+                <button type="submit">Update</button>
+                
+              </form>
         </div>
     </div>
 </main>
