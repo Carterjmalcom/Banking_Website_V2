@@ -41,36 +41,6 @@
             document.getElementById('sign-up-message').innerText = result.message;
             //---//
         });
-        
-        // Sign-In Logic
-        // document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
-        //     e.preventDefault();
-        //     const username = document.getElementById('sign-in-username').value;
-        //     const password = document.getElementById('sign-in-password').value;
-        //     if (username) {
-        //         currentUser = username;
-        //         document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
-        //     } else {
-        //         alert('Please enter a username to sign in.');
-        //     }
-        
-        //     const response = await fetch('/sign-in', {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: JSON.stringify({ username, password }),
-        //     });
-        
-        //     const result = await response.json();
-        //     if (response.ok) {
-        //         alert('Sign-in successful');
-        //         document.getElementById('go-to-deposit').disabled = false;
-        //         document.getElementById('go-to-withdraw').disabled = false;
-        //         document.getElementById('go-to-profile').disabled = false;
-        //         document.getElementById('balance-display').classList.remove('hidden');
-        //     } else {
-        //         document.getElementById('sign-in-message').innerText = result.message;
-        //     }
-        // });
 
         // Sign-In Logic
         document.querySelector('#sign-in-form form').addEventListener('submit', async (e) => {
@@ -78,72 +48,107 @@
             const username = document.getElementById('sign-in-username').value;
             const password = document.getElementById('sign-in-password').value;
             if (username) {
-                currentUser = username;
+                let currentUser = username;
                 document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
             } else {
                 alert('Please enter a username to sign in.');
             }
+        
         
             const response = await fetch('/sign-in', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             });
-
-    const result = await response.json();
-    if (response.ok) {
-        alert('Sign-in successful');
-        document.getElementById('go-to-deposit').disabled = false;
-        document.getElementById('go-to-withdraw').disabled = false;
-        document.getElementById('go-to-profile').disabled = false;
+        
+        
+            const result = await response.json();
+            if (response.ok) {
+                alert('Sign-in successful');
+                document.getElementById('go-to-deposit').disabled = false;
+                document.getElementById('go-to-withdraw').disabled = false;
+                document.getElementById('go-to-profile').disabled = false;
                 document.getElementById('balance-display').classList.remove('hidden');
-        const userResponse = await fetch('/user-info', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username}),
-        });
-        if (userResponse.ok) {
-            const depositResult = await userResponse.json();
-            let currentBalance = depositResult.balance
-            console.log(depositResult)
-            const balanceElement = document.getElementById('balance-display');
-            balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
-        }
-       
-    } else {
-        document.getElementById('sign-in-message').innerText = result.message;
-    }
-});
+                const userResponse = await fetch('/user-info', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username }),
+                });
+                if (userResponse.ok) {
+                    const depositResult = await userResponse.json();
+                    let currentBalance = depositResult.balance
+                    console.log(depositResult)
+                    const balanceElement = document.getElementById('balance-display');
+                    balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+                    let transactions = depositResult.transactions
         
-        // Sign Out Button Logic
-        document.getElementById('sign-out').addEventListener('click', () => {
-            // Perform sign-out actions
-            currentUser = null; // Clear the current user
-            currentBalance = 0; // Reset the balance
-            updateBalanceDisplay(); // Update the displayed balance
-            alert('You have signed out successfully!');
         
-            document.getElementById('sign-in-message').innerText = 'No user signed in.';
-            fetch('/sign-out', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        alert('Signed out successfully.');
-                        // Disable restricted options
-                        document.getElementById('go-to-deposit').disabled = true;
-                        document.getElementById('go-to-withdraw').disabled = true;
-                        document.getElementById('sign-out').disabled = true;
+                    const profilePage = document.getElementById('profile-page')
+                    const transactionContainer = document.getElementById("transaction-container");
+                    transactionContainer.classList.add("transaction-container")
+                    profilePage.appendChild(transactionContainer)
+                    let values = []
+                    let labels = []
+                    for (let i = 0; i < transactions.length; i++) {
+                        const div = document.createElement("div");
+                        div.classList.add("transaction-div")
+                        // ID
+                        const idP = document.createElement("p");
+                        const idNode = document.createTextNode(`ID: ${transactions[i].id}`);
+                        idP.appendChild(idNode);
+                        div.appendChild(idP)
+                        // NAME
+                        const nameP = document.createElement("p");
+                        const nameNode = document.createTextNode(`Name: ${transactions[i].name}`);
+                        nameP.appendChild(nameNode);
+                        div.appendChild(nameP)
+                        // CATEGORY
+                        const categoryP = document.createElement("p");
+                        const categoryNode = document.createTextNode(`Category: ${transactions[i].category}`);
+                        categoryP.appendChild(categoryNode);
+                        div.appendChild(categoryP)
+                        labels.push(transactions[i].category)
+                        // PRICE
+                        const priceP = document.createElement("p");
+                        const priceNode = document.createTextNode(`Price: ${transactions[i].price}`);
+                        priceP.appendChild(priceNode);
+                        div.appendChild(priceP)
+                        values.push(transactions[i].price)
+                        // DATE
+                        const dateP = document.createElement("p");
+                        const dateNode = document.createTextNode(`Date: ${transactions[i].date}`);
+                        dateP.appendChild(dateNode);
+                        div.appendChild(dateP)
+                        //CONTAINER
+                        transactionContainer.appendChild(div)
         
-                        // Redirect user to the sign-in form
-                        showForm('sign-in-form');
-                    } else {
-                        alert('Error signing out. Please try again.');
+        
                     }
-                })
-                .catch((err) => console.error('Error:', err));
+                    TESTER = document.getElementById('tester');
+                    var data = [{
+                        values: values,
+                        labels: labels,
+                        type: 'pie'
+                    }];
+        
+        
+                    var layout = {
+                        height: 400,
+                        width: 500
+                    };
+        
+        
+                    Plotly.newPlot(TESTER, data);
+                }
+        
+        
+        
+        
+            } else {
+                document.getElementById('sign-in-message').innerText = result.message;
+            }
         });
+        
         
         // Cache username and balance
         let currentUser = null;

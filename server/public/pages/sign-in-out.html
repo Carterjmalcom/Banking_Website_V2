@@ -215,7 +215,21 @@ footer a:hover {
     }
 
 }
+.transaction-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.transaction-div {
+    margin: 5px;
+    /* display: flex; */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+}
     </style>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 </head>
 <body>
 <main>
@@ -247,6 +261,8 @@ footer a:hover {
         <!-- Profile Page -->
         <div id="profile-page" class="form-container hidden">
             <h2>Profile</h2>
+            <div id="transaction-container"></div>
+            <div id="tester"></div>
         </div>
 
         <!-- Sign-Up Form -->
