@@ -241,10 +241,20 @@ app.post('/sign-in', async (req, res) => {
 });
 
 // Sign-Out Endpoint
-app.post('/sign-out', (req, res) => {
-    // Clear the user session or authentication token
-    req.session = null; // If you're using cookies or sessions
-    res.status(200).json({ message: 'Signed out successfully' });
+// app.post('/sign-out', (req, res) => {
+//     // Clear the user session or authentication token
+//     req.session = null; // If you're using cookies or sessions
+//     res.status(200).json({ message: 'Signed out successfully' });
+// });
+
+app.post('/sign-out', async (req, res) => {
+    const { username } = req.body;
+
+    if (!username) {
+        return res.status(400).json({ error: 'Invalid sign-out request.' });
+    }
+
+    res.status(200).json({ message: 'Signed out successfully.' });
 });
 
 

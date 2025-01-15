@@ -135,6 +135,7 @@
                 document.getElementById('balance-display').classList.remove('hidden');
                 document.getElementById('go-to-sign-in').disabled = true
                 document.getElementById('go-to-sign-up').disabled = true
+                document.getElementById('sign-out').disabled = false;
                 const userResponse = await fetch('/user-info', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -365,3 +366,37 @@
             });
         });
         
+        // Sign Out
+
+        // document.getElementById('sign-out').addEventListener('click', () => {
+        //     if (currentUser) {
+        //         // Save the current user's balance before signing out
+        //         userBalances[currentUser] = currentBalance;
+        
+        //         currentUser = null; // Clear the current user
+        //         currentBalance = 0; // Reset the balance
+        //         updateBalanceDisplay(); // Update the displayed balance
+        //         document.getElementById('sign-in-message').innerText = 'No user signed in.';
+        //         alert('You have signed out successfully!');
+        //     } else {
+        //         alert('No user is signed in.');
+        //     }
+        // });
+
+        document.getElementById('sign-out').addEventListener('click', () => {
+            if (true) {
+            currentUser = null; // Clear the current user
+            currentBalance = 0; // Reset the balance
+            updateBalanceDisplay();
+            document.getElementById('sign-in-message').innerText = 'No user signed in.';
+            alert('You have signed out successfully!');
+            document.getElementById('go-to-sign-in').disabled = false;
+            document.getElementById('go-to-sign-up').disabled = false;
+            document.getElementById('go-to-deposit').disabled = true;
+            document.getElementById('go-to-withdraw').disabled = true;
+            document.getElementById('go-to-profile').disabled = true;
+            document.getElementById('balance-display').classList('hidden');
+            document.getElementById('sign-out').disabled = true;
+            }
+        });
+       
