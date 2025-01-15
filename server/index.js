@@ -260,7 +260,7 @@ app.post('/sign-out', async (req, res) => {
 
 // Deposit Endpoint
 app.post('/deposit', async (req, res) => {
-    const { currentUser, amount } = req.body;
+    const { currentUser, amount, date, type } = req.body;
     console.log(currentUser)
     try {
         const data = await fs.readFile(dataPath, 'utf8');
@@ -272,8 +272,9 @@ app.post('/deposit', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Update balance
-        user.balance += amount;
+        let deposits = user.deposits
+        let newDeposit = {id:"test", amount: amount, date: date, type: type}
+        deposits.push(newDeposit)
 
         // Save users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));

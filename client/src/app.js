@@ -21,14 +21,17 @@
             if (userResponse.ok) {
                 const depositResult = await userResponse.json();
                 let currentBalance = depositResult.balance
-                console.log(depositResult)
                 const balanceElement = document.getElementById('balance-display');
                 balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 let transactions = depositResult.transactions
+                let deposits = depositResult.deposits
                 const profilePage = document.getElementById('profile-page')
                 let transactionContainer = document.getElementById("transaction-container");
+                let depositContainer = document.getElementById("deposit-container");
                 transactionContainer.innerHTML = '';
+                depositContainer.innerHTML = '';
                 transactionContainer.classList.add("transaction-container")
+                depositContainer.classList.add("transaction-container")
                 profilePage.appendChild(transactionContainer)
                 let values = []
                 let labels = []
@@ -64,7 +67,42 @@
                     div.appendChild(dateP)
                     //CONTAINER
                     transactionContainer.appendChild(div)
+                    
+
                 }
+                for (let i = 0; i < deposits.length; i++) {
+                    const div = document.createElement("div");
+                    div.classList.add("transaction-div")
+                    // ID
+                    const idP = document.createElement("p");
+                    const idNode = document.createTextNode(`ID: ${deposits[i].id}`);
+                    idP.appendChild(idNode);
+                    div.appendChild(idP)
+                    // AMOUNT
+                    const amountP = document.createElement("p");
+                    const amountNode = document.createTextNode(`Amount: ${deposits[i].amount}`);
+                    amountP.appendChild(amountNode);
+                    div.appendChild(amountP)
+                    // DATE
+                    const dateP = document.createElement("p");
+                    const dateNode = document.createTextNode(`Date: ${deposits[i].date}`);
+                    dateP.appendChild(dateNode);
+                    div.appendChild(dateP)
+                    // DATE
+                    const typeP = document.createElement("p");
+                    const typeNode = document.createTextNode(`Type: ${deposits[i].type}`);
+                    typeP.appendChild(typeNode);
+                    div.appendChild(typeP)
+                    //CONTAINER
+                    depositContainer.appendChild(div)
+                }
+                TESTER = document.getElementById('tester');
+                var data = [{
+                    values: values,
+                    labels: labels,
+                    type: 'pie'
+                }];
+                Plotly.newPlot(TESTER, data);
             }
         });
         document.getElementById('go-to-update').addEventListener('click', () => {
@@ -136,79 +174,6 @@
                 document.getElementById('go-to-sign-in').disabled = true
                 document.getElementById('go-to-sign-up').disabled = true
                 document.getElementById('sign-out').disabled = false;
-                const userResponse = await fetch('/user-info', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username }),
-                });
-                if (userResponse.ok) {
-                    const depositResult = await userResponse.json();
-                    let currentBalance = depositResult.balance
-                    console.log(depositResult)
-                    const balanceElement = document.getElementById('balance-display');
-                    balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
-                    let transactions = depositResult.transactions
-                    const profilePage = document.getElementById('profile-page')
-                    let transactionContainer = document.getElementById("transaction-container");
-                    transactionContainer.innerHTML = '';
-                    transactionContainer.classList.add("transaction-container")
-                    profilePage.appendChild(transactionContainer)
-                    let values = []
-                    let labels = []
-                    for (let i = 0; i < transactions.length; i++) {
-                        const div = document.createElement("div");
-                        div.classList.add("transaction-div")
-                        // ID
-                        const idP = document.createElement("p");
-                        const idNode = document.createTextNode(`ID: ${transactions[i].id}`);
-                        idP.appendChild(idNode);
-                        div.appendChild(idP)
-                        // NAME
-                        const nameP = document.createElement("p");
-                        const nameNode = document.createTextNode(`Name: ${transactions[i].name}`);
-                        nameP.appendChild(nameNode);
-                        div.appendChild(nameP)
-                        // CATEGORY
-                        const categoryP = document.createElement("p");
-                        const categoryNode = document.createTextNode(`Category: ${transactions[i].category}`);
-                        categoryP.appendChild(categoryNode);
-                        div.appendChild(categoryP)
-                        labels.push(transactions[i].category)
-                        // PRICE
-                        const priceP = document.createElement("p");
-                        const priceNode = document.createTextNode(`Price: ${transactions[i].price}`);
-                        priceP.appendChild(priceNode);
-                        div.appendChild(priceP)
-                        values.push(transactions[i].price)
-                        // DATE
-                        const dateP = document.createElement("p");
-                        const dateNode = document.createTextNode(`Date: ${transactions[i].date}`);
-                        dateP.appendChild(dateNode);
-                        div.appendChild(dateP)
-                        //CONTAINER
-                        transactionContainer.appendChild(div)
-                    }
-                    
-                    TESTER = document.getElementById('tester');
-                    var data = [{
-                        values: values,
-                        labels: labels,
-                        type: 'pie'
-                    }];
-        
-        
-                    var layout = {
-                        height: 400,
-                        width: 500
-                    };
-        
-        
-                    Plotly.newPlot(TESTER, data);
-                }
-        
-        
-        
-        
             } else {
                 document.getElementById('sign-in-message').innerText = result.message;
             }
@@ -228,19 +193,21 @@
         // Deposit money
         document.getElementById('deposit-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const amount = document.getElementById('deposit-amount').value;
+            const date = document.getElementById('deposit-date').value;
+            const type = document.getElementById('deposit-type').value;
         
             const response = await fetch('/deposit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({currentUser, amount }),
+                body: JSON.stringify({currentUser, amount, date, type }),
             });
         
             if (response.ok) {
                 const result = await response.json();
-                currentBalance = result.balance;
-                const balanceElement = document.getElementById('balance-display');
-                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+                // currentBalance = result.balance;
+                // const balanceElement = document.getElementById('balance-display');
+                // balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 alert('Deposit successful!');
             } else {
                 alert('Error processing deposit');

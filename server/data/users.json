@@ -108,6 +108,27 @@
         "category": "Food",
         "price": "11.43",
         "date": "11/12/25"
+      },
+      {
+        "id": "test",
+        "name": "Chick",
+        "category": "Food",
+        "price": "11.43",
+        "date": "11/12/25"
+      }
+    ],
+    "deposits": [
+      {
+        "id": "16gsd3Kd38",
+        "amount": "1500",
+        "date": "11/1/24",
+        "type": "Work"
+      },
+      {
+        "id": "test",
+        "amount": "1200",
+        "date": "11/30/24",
+        "type": "Personal"
       }
     ]
   },
