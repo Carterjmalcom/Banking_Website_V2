@@ -103,5 +103,10 @@
         "date": "12/13/24"
       }
     ]
+  },
+  {
+    "username": "jc",
+    "password": "123",
+    "balance": 0
   }
 ]
