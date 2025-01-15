@@ -1,8 +1,8 @@
 [
   {
-    "username": "test",
-    "password": "test",
-    "balance": 2000,
+    "username": "test1",
+    "password": "test1",
+    "balance": 2001,
     "transactions": [
       {
         "id": "12jds3Ns65",

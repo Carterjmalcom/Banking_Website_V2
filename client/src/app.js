@@ -20,6 +20,14 @@
         document.getElementById('go-to-delete').addEventListener('click', () => {
             showForm('delete-form')
         })
+
+        
+        let currentBalance = 0;
+
+        let currentUser;
+        
+        // Object to store user balances
+        const userBalances = {};
         
         
         // Show form function
@@ -51,7 +59,7 @@
             const username = document.getElementById('sign-in-username').value;
             const password = document.getElementById('sign-in-password').value;
             if (username) {
-                let currentUser = username;
+                currentUser = username;
                 document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
             } else {
                 alert('Please enter a username to sign in.');
@@ -157,12 +165,7 @@
         
         
         // Cache username and balance
-        let currentUser = null;
-        
-        let currentBalance = 0;
-        
-        // Object to store user balances
-        const userBalances = {};
+
         
         // Show balance in the UI
         function updateBalanceDisplay() {
@@ -179,13 +182,14 @@
             const response = await fetch('/deposit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, amount }),
+                body: JSON.stringify({currentUser, amount }),
             });
         
             if (response.ok) {
                 const result = await response.json();
                 currentBalance = result.balance;
-                updateBalanceDisplay();
+                const balanceElement = document.getElementById('balance-display');
+                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 alert('Deposit successful!');
             } else {
                 alert('Error processing deposit');
@@ -200,13 +204,14 @@
             const response = await fetch('/withdraw', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, amount }),
+                body: JSON.stringify({currentUser, amount }),
             });
         
             if (response.ok) {
                 const result = await response.json();
                 currentBalance = result.balance;
-                updateBalanceDisplay();
+                const balanceElement = document.getElementById('balance-display');
+                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 alert('Withdrawal successful!');
             } else {
                 const error = await response.json();
