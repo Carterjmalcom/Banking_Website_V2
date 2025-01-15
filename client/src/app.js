@@ -11,8 +11,61 @@
         document.getElementById('go-to-withdraw').addEventListener('click', () => {
             showForm('withdraw-form');
         });
-        document.getElementById('go-to-profile').addEventListener('click', () => {
+        document.getElementById('go-to-profile').addEventListener('click', async () => {
             showForm('profile-page');
+            const userResponse = await fetch('/user-info-current', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentUser }),
+            });
+            if (userResponse.ok) {
+                const depositResult = await userResponse.json();
+                let currentBalance = depositResult.balance
+                console.log(depositResult)
+                const balanceElement = document.getElementById('balance-display');
+                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+                let transactions = depositResult.transactions
+                const profilePage = document.getElementById('profile-page')
+                let transactionContainer = document.getElementById("transaction-container");
+                transactionContainer.innerHTML = '';
+                transactionContainer.classList.add("transaction-container")
+                profilePage.appendChild(transactionContainer)
+                let values = []
+                let labels = []
+                for (let i = 0; i < transactions.length; i++) {
+                    const div = document.createElement("div");
+                    div.classList.add("transaction-div")
+                    // ID
+                    const idP = document.createElement("p");
+                    const idNode = document.createTextNode(`ID: ${transactions[i].id}`);
+                    idP.appendChild(idNode);
+                    div.appendChild(idP)
+                    // NAME
+                    const nameP = document.createElement("p");
+                    const nameNode = document.createTextNode(`Name: ${transactions[i].name}`);
+                    nameP.appendChild(nameNode);
+                    div.appendChild(nameP)
+                    // CATEGORY
+                    const categoryP = document.createElement("p");
+                    const categoryNode = document.createTextNode(`Category: ${transactions[i].category}`);
+                    categoryP.appendChild(categoryNode);
+                    div.appendChild(categoryP)
+                    labels.push(transactions[i].category)
+                    // PRICE
+                    const priceP = document.createElement("p");
+                    const priceNode = document.createTextNode(`Price: ${transactions[i].price}`);
+                    priceP.appendChild(priceNode);
+                    div.appendChild(priceP)
+                    values.push(transactions[i].price)
+                    // DATE
+                    const dateP = document.createElement("p");
+                    const dateNode = document.createTextNode(`Date: ${transactions[i].date}`);
+                    dateP.appendChild(dateNode);
+                    div.appendChild(dateP)
+                    //CONTAINER
+                    transactionContainer.appendChild(div)
+                }
+            }
         });
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
@@ -95,10 +148,9 @@
                     const balanceElement = document.getElementById('balance-display');
                     balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                     let transactions = depositResult.transactions
-        
-        
                     const profilePage = document.getElementById('profile-page')
-                    const transactionContainer = document.getElementById("transaction-container");
+                    let transactionContainer = document.getElementById("transaction-container");
+                    transactionContainer.innerHTML = '';
                     transactionContainer.classList.add("transaction-container")
                     profilePage.appendChild(transactionContainer)
                     let values = []
@@ -135,9 +187,8 @@
                         div.appendChild(dateP)
                         //CONTAINER
                         transactionContainer.appendChild(div)
-        
-        
                     }
+                    
                     TESTER = document.getElementById('tester');
                     var data = [{
                         values: values,
@@ -199,12 +250,19 @@
         // Withdraw money
         document.getElementById('withdraw-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const name = document.getElementById('transaction-name').value;
+            const category = document.getElementById('transaction-category').value;
+            const price = document.getElementById('transaction-price').value;
+            const date = document.getElementById('transaction-date').value;
+            console.log(name)
+            console.log(category)
+            console.log(price)
+            console.log(date)
         
             const response = await fetch('/withdraw', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({currentUser, amount }),
+                body: JSON.stringify({currentUser, name, category, price, date }),
             });
         
             if (response.ok) {

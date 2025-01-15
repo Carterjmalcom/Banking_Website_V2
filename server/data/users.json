@@ -101,6 +101,13 @@
         "category": "Entertainment",
         "price": "15.99",
         "date": "12/13/24"
+      },
+      {
+        "id": "test",
+        "name": "Chick",
+        "category": "Food",
+        "price": "11.43",
+        "date": "11/12/25"
       }
     ]
   },

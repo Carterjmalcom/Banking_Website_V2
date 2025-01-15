@@ -9,6 +9,9 @@
     href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
     rel="stylesheet"
   />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap" rel="stylesheet">
     <style>
 * {
     margin:0;
@@ -19,7 +22,7 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #9fa8da;
+    background-color:#fff0c7;
 }
 
 main {
@@ -42,7 +45,7 @@ main {
     height:auto;
     /* margin: 50px auto; */
     padding: 20px;
-    background: #9fa8da;
+    background: #fff0c7;
     border-radius: 5px;
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
@@ -52,6 +55,10 @@ h1 {
     color: black;
     font-size: 3rem;
     width: 100%;
+    font-family: "Playwrite IN", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 nav {
@@ -238,6 +245,7 @@ footer a:hover {
         <!-- Navigation -->
         <nav>
             <h1>Money Maestro</h1>
+            <img src="./images/money-logo.png" alt="" style="width: auto; height: 100px;">
             <div id="my-links" class="menu">
             <button id="go-to-profile" disabled>
                 <i class="bx bxs-user-circle"></i>Profile</button>
@@ -316,8 +324,14 @@ footer a:hover {
             <h2>Withdraw</h2>
             <br>
             <form>
-                <label for="withdraw-amount">Amount:</label>
-                <input type="number" id="withdraw-amount" required>
+                <label for="transaction-name">Name:</label>
+                <input type="string" id="transaction-name" required>
+                <label for="transaction-category">Category:</label>
+                <input type="string" id="transaction-category" required>
+                <label for="transaction-price">Price:</label>
+                <input type="string" id="transaction-price" required>
+                <label for="transaction-date">Date:</label>
+                <input type="string" id="transaction-date" required>
 
                 <button type="submit">Withdraw</button>
             </form>
