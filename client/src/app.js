@@ -17,6 +17,9 @@
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
         })
+        document.getElementById('go-to-delete').addEventListener('click', () => {
+            showForm('delete-form')
+        })
         
         
         // Show form function
@@ -217,23 +220,58 @@
         .getElementById("update-form").addEventListener("submit", async (e) => {
             e.preventDefault();
             const username = document.getElementById("currentUsername").value;
+            const password = document.getElementById("currentPassword").value;
             const newUser = document.getElementById("newUser").value;
+            const newPassword = document.getElementById("newPassword").value;
             console.log('Current user:', { currentUser});
         console.log('New user data:', { newUser});
+
           try {
-            const response = await fetch(`/update-user/${username}`,{
+            const response = await fetch(`/update-user/${username}/${password}`,{
                 method: "PUT",
                 headers: {
                 "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, newUser }),
+                body: JSON.stringify({ username, newUser, password, newPassword }),
             });
+            if (response.ok) {
+                alert('Update successful');
+
+            const result = await response.json();
+            document.getElementById('update-message').innerText = result.message;
+            }
             const data = await response.json();
             console.log(data);
             // renderUsers();
             // alert("Message is: " + data.message);
           } catch (error) {
             alert("Error updating user: " + error.message);
+          }
+        });
+
+        // Delete
+        document
+        .getElementById("delete-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("delete-username").value;
+          const password = document.getElementById("delete-password").value;
+          try {
+            const response = await fetch(`/user/${username}/${password}`, {
+              method: "DELETE",
+            });
+
+            if (response.ok) {
+              alert("User deleted successfully");
+            }
+            else {
+                throw new Error("Error with network");
+            }
+            const data = await response.text();
+            console.log(data);
+            renderUsers();
+          } catch (error) {
+            console.error("something went wrong" + error.message);
           }
         });
         

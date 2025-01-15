@@ -247,6 +247,7 @@ footer a:hover {
             <button id="go-to-withdraw" disabled><i class='bx bx-transfer'></i>Withdraw</button>
             <button id="sign-out" disabled><i class='bx bx-chevron-right logoutButton'></i>Sign Out</button>
             <button id="go-to-update">Update</button>
+            <button id="go-to-delete">Delete</button>
             </div>
             <button id="burger-icon">
                 <i class="fa fa-bars"></i>
@@ -321,22 +322,37 @@ footer a:hover {
             <p id="withdraw-message"></p>
         </div>
 
+        <!-- Update Form -->
         <div id="update-form" class="form-container hidden">
             <h2>Update</h2>
             <form >
                 <label for="currentUsername">Username:</label>
                 <input type="text" id="currentUsername" required>
-                <label for="update-password">Password:</label>
-                <input type="password" id="update-password" required>
+                <label for="currentPassword">Password:</label>
+                <input type="password" id="currentPassword" required>
 
                 <label for="newUser">New Username:</label>
                 <input type="text" id="newUser" required />
                 <label for="newPassword">New Password:</label>
-                <input type="text" id="newPassword" required />
+                <input type="password" id="newPassword" required />
                 <button type="submit">Update</button>
-                
               </form>
+              <p id="update-message"></p>
         </div>
+
+        <!-- Delete Form -->
+        <div id="delete-form" class="form-container hidden">
+            <h2>Delete</h2>
+            <form >
+                <label for="delete-name">username:</label>
+                <input type="text" id="delete-username" />
+                <label for="delete-power">Password:</label>
+                <input type="text" id="delete-password" />
+                <button type="submit">Delete User</button>
+              </form>
+              <p id="delete-message"></p>
+        </div>
+
     </div>
 </main>
 <footer>
