@@ -257,26 +257,18 @@ app.post('/deposit', async (req, res) => {
 
 // Withdraw Endpoint
 app.post('/withdraw', async (req, res) => {
-    const { username, amount } = req.body;
+    const { currentUser, name, category, price, date } = req.body;
 
     try {
         const data = await fs.readFile(dataPath, 'utf8');
         const users = JSON.parse(data);
 
         // Find user
-        const user = users.find((u) => u.username === username);
+        const user = users.find((u) => u.username === currentUser);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        // Check for sufficient balance
-        if (user.balance < amount) {
-            return res.status(400).json({ message: 'Insufficient balance' });
-        }
-
-        // Update balance
-        user.balance -= amount;
-
+        
         // Save users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
         res.status(200).json({ balance: user.balance });

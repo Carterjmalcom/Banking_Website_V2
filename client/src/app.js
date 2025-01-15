@@ -198,12 +198,19 @@
         // Withdraw money
         document.getElementById('withdraw-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const name = document.getElementById('transaction-name').value;
+            const category = document.getElementById('transaction-category').value;
+            const price = parseFloat(document.getElementById('transaction-price').value);
+            const date = document.getElementById('transaction-date').value;
+            console.log(name)
+            console.log(category)
+            console.log(price)
+            console.log(date)
         
             const response = await fetch('/withdraw', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({currentUser, amount }),
+                body: JSON.stringify({currentUser, name, category, price, date }),
             });
         
             if (response.ok) {
