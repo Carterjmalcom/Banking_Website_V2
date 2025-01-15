@@ -40,12 +40,12 @@ app.get('/users', async (req, res) => {
 app.post('/user-info', async (req, res) => {
     try {
         const {username} = req.body
-        console.log(username)
+        // console.log(username)
         const data = await fs.readFile(dataPath, 'utf8');
 
         const users = JSON.parse(data);
         const userIndex = users.findIndex(user => user.username === username );
-        console.log(userIndex)
+        // console.log(userIndex)
         if (!users) {
             throw new Error("Error no users available");
         }
@@ -119,12 +119,12 @@ app.put('/update-user/:username', async (req, res) => {
         if (data) {
             let users = JSON.parse(data);
             const userIndex = users.findIndex(user => user.username === username);
-            console.log(userIndex);
+            // console.log(userIndex);
             if (userIndex === -1) {
                 return res.status(404).json({ message: "User not found" })
             }
             users[userIndex] = { ...users[userIndex], username: newUser};
-            console.log(users);
+            // console.log(users);
             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
 
             res.status(200).json({ message: `You sent ${newUser}` });
@@ -149,7 +149,7 @@ app.delete('/user/:name/:powers', async (req, res) => {
         }
         // cache the userIndex based on a matching name and email
         const userIndex = users.findIndex(user => user.name === name && user.powers === powers);
-        console.log(userIndex);
+        // console.log(userIndex);
         if (userIndex === -1) {
             return res.status(404).send('User not found');
         }
@@ -227,15 +227,16 @@ app.post('/sign-out', (req, res) => {
 
 
 // Deposit Endpoint
-app.post('/deposit', async (req, res) => {
-    const { username, amount } = req.body;
-
+app.post('/deposit-test', async (req, res) => {
+    const { currentUser, amount } = req.body;
+    console.log(currentUser)
+    console.log(amount)
     try {
         const data = await fs.readFile(dataPath, 'utf8');
         const users = JSON.parse(data);
 
         // Find user
-        const user = users.find((u) => u.username === username);
+        const user = users.find((u) => u.username === currentUser);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

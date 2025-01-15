@@ -17,6 +17,14 @@
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
         })
+
+                // Cache username and balance
+                let currentUser = null;
+        
+                let currentBalance = 0;
+                
+                // Object to store user balances
+                const userBalances = {};
         
         
         // Show form function
@@ -152,13 +160,7 @@
         });
         
         
-        // Cache username and balance
-        let currentUser = null;
-        
-        let currentBalance = 0;
-        
-        // Object to store user balances
-        const userBalances = {};
+
         
         // Show balance in the UI
         function updateBalanceDisplay() {
@@ -171,11 +173,13 @@
         document.getElementById('deposit-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const amount = parseFloat(document.getElementById('deposit-amount').value);
-        
-            const response = await fetch('/deposit', {
+            
+            currentUser = "test"
+            console.log(currentUser)
+            const response = await fetch('/deposit-test', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, amount }),
+                body: JSON.stringify({currentUser, amount}),
             });
         
             if (response.ok) {
