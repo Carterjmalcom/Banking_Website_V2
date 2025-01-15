@@ -1,7 +1,7 @@
 [
   {
-    "username": "test1",
-    "password": "test1",
+    "username": "goodSavings",
+    "password": "password",
     "balance": 2001,
     "transactions": [
       {
@@ -119,8 +119,74 @@
     ]
   },
   {
-    "username": "jc",
-    "password": "123",
-    "balance": 0
+    "username": "badSavings",
+    "password": "password",
+    "balance": 2001,
+    "transactions": [
+      {
+        "id": "12jds3Ns65",
+        "name": "Chick-Fil-A",
+        "category": "Fast Food",
+        "price": "11.23",
+        "date": "11/12/24"
+      },
+      {
+        "id": "34klw9Xg12",
+        "name": "McDonald's",
+        "category": "Fast Food",
+        "price": "8.99",
+        "date": "12/01/24"
+      },
+      {
+        "id": "98bs2PjU45",
+        "name": "Target",
+        "category": "Shopping",
+        "price": "45.30",
+        "date": "12/02/24"
+      },
+      {
+        "id": "78kdt5Ds31",
+        "name": "Chipotle",
+        "category": "Fast Food",
+        "price": "12.45",
+        "date": "12/03/24"
+      },
+      {
+        "id": "56wer7Ln90",
+        "name": "Chevron",
+        "category": "Gas",
+        "price": "35.20",
+        "date": "12/04/24"
+      },
+      {
+        "id": "23mnt4Jw81",
+        "name": "Walmart",
+        "category": "Shopping",
+        "price": "82.50",
+        "date": "12/05/24"
+      },
+      {
+        "id": "67ykj2Ub15",
+        "name": "Panda Express",
+        "category": "Fast Food",
+        "price": "10.00",
+        "date": "12/06/24"
+      },
+      {
+        "id": "99fgt3Hp04",
+        "name": "H&M",
+        "category": "Clothes",
+        "price": "409.70",
+        "date": "12/07/24"
+      }
+    ],
+    "deposits": [
+      {
+        "id": "16gsd3Kd38",
+        "amount": "540",
+        "date": "11/1/24",
+        "type": "Work"
+      }
+    ]
   }
 ]

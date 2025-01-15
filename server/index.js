@@ -22,16 +22,16 @@ function randomID() {
     const characters = "abcdefghijklmnopqrstuvwxyz";
     const capCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     for (let i = 0; i < 3; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      second += characters.charAt(randomIndex);
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        second += characters.charAt(randomIndex);
     }
     let third = Math.floor(Math.random() * 10)
     let fourth = capCharacters.charAt(Math.floor(Math.random() * capCharacters.length));
     let fifth = characters.charAt(Math.floor(Math.random() * characters.length));
     let sixth = Math.floor(Math.random() * 90) + 10
     console.log(second)
-    return(first.toString() + second + third.toString()+fourth+fifth+sixth.toString())
-    
+    return (first.toString() + second + third.toString() + fourth + fifth + sixth.toString())
+
 }
 // Home route
 app.get('/', (req, res) => {
@@ -55,12 +55,12 @@ app.get('/users', async (req, res) => {
 
 app.post('/user-info', async (req, res) => {
     try {
-        const {username} = req.body
+        const { username } = req.body
         console.log(username)
         const data = await fs.readFile(dataPath, 'utf8');
 
         const users = JSON.parse(data);
-        const userIndex = users.findIndex(user => user.username === username );
+        const userIndex = users.findIndex(user => user.username === username);
         console.log(userIndex)
         if (!users) {
             throw new Error("Error no users available");
@@ -74,12 +74,12 @@ app.post('/user-info', async (req, res) => {
 
 app.post('/user-info-current', async (req, res) => {
     try {
-        const {currentUser} = req.body
+        const { currentUser } = req.body
         // console.log(username)
         const data = await fs.readFile(dataPath, 'utf8');
 
         const users = JSON.parse(data);
-        const userIndex = users.findIndex(user => user.username === currentUser );
+        const userIndex = users.findIndex(user => user.username === currentUser);
         console.log(userIndex)
         if (!users) {
             throw new Error("Error no users available");
@@ -147,12 +147,12 @@ app.post('/submit-form', async (req, res) => {
 app.put('/update-user/:username/:password', async (req, res) => {
     try {
         const { username, password } = req.params;
-        const { newUser, newPassword} = req.body;
+        const { newUser, newPassword } = req.body;
 
-        console.log('Current user:', { username});
-        console.log('New user data:', { newUser});
-        console.log('Current password:', { password});
-        console.log('New password:', { newPassword});
+        console.log('Current user:', { username });
+        console.log('New user data:', { newUser });
+        console.log('Current password:', { password });
+        console.log('New password:', { newPassword });
         const data = await fs.readFile(dataPath, 'utf8');
         if (data) {
             let users = JSON.parse(data);
@@ -161,11 +161,11 @@ app.put('/update-user/:username/:password', async (req, res) => {
             if (userIndex === -1) {
                 return res.status(404).json({ message: "User not found" })
             }
-            users[userIndex] = { ...users[userIndex], username: newUser, password: newPassword};
+            users[userIndex] = { ...users[userIndex], username: newUser, password: newPassword };
             console.log(users);
             await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
 
-            res.status(200).json({ message: `You sent ${newUser} and ${newPassword}`});
+            res.status(200).json({ message: `You sent ${newUser} and ${newPassword}` });
         }
     } catch (error) {
         console.error('Error updating user:', error);
@@ -225,7 +225,7 @@ app.post('/sign-up', async (req, res) => {
     }
 
     // Add new user with a starting balance of 0
-    const newUser = { username, password, balance: 0 };
+    const newUser = { username, password, balance: 0, transactions: [], deposits: [] };
     users.push(newUser);
 
     // Save users
@@ -289,7 +289,7 @@ app.post('/deposit', async (req, res) => {
         }
 
         let deposits = user.deposits
-        let newDeposit = {id:randomID(), amount: amount, date: date, type: type}
+        let newDeposit = { id: randomID(), amount: amount, date: date, type: type }
         deposits.push(newDeposit)
 
         // Save users
@@ -304,7 +304,7 @@ app.post('/deposit', async (req, res) => {
 // Withdraw Endpoint
 app.post('/withdraw', async (req, res) => {
     const { currentUser, name, category, price, date } = req.body;
-        
+
     try {
         const data = await fs.readFile(dataPath, 'utf8');
         const users = JSON.parse(data);
@@ -315,7 +315,7 @@ app.post('/withdraw', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         let transactions = user.transactions
-        let newTransaction = {id:randomID(), name: name, category: category, price: price, date: date}
+        let newTransaction = { id: randomID(), name: name, category: category, price: price, date: date }
         transactions.push(newTransaction)
         // Save users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
