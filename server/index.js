@@ -231,14 +231,14 @@ app.post('/sign-out', (req, res) => {
 
 // Deposit Endpoint
 app.post('/deposit', async (req, res) => {
-    const { username, amount } = req.body;
-
+    const { currentUser, amount } = req.body;
+    console.log(currentUser)
     try {
         const data = await fs.readFile(dataPath, 'utf8');
         const users = JSON.parse(data);
 
         // Find user
-        const user = users.find((u) => u.username === username);
+        const user = users.find((u) => u.username === currentUser);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

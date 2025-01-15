@@ -20,6 +20,14 @@
         document.getElementById('go-to-delete').addEventListener('click', () => {
             showForm('delete-form')
         })
+
+        
+        let currentBalance = 0;
+
+        let currentUser;
+        
+        // Object to store user balances
+        const userBalances = {};
         
         
         // Show form function
@@ -51,7 +59,7 @@
             const username = document.getElementById('sign-in-username').value;
             const password = document.getElementById('sign-in-password').value;
             if (username) {
-                let currentUser = username;
+                currentUser = username;
                 document.getElementById('sign-in-message').innerText = `Welcome, ${currentUser}!`;
             } else {
                 alert('Please enter a username to sign in.');
@@ -156,12 +164,7 @@
         
         
         // Cache username and balance
-        let currentUser = null;
-        
-        let currentBalance = 0;
-        
-        // Object to store user balances
-        const userBalances = {};
+
         
         // Show balance in the UI
         function updateBalanceDisplay() {
@@ -178,7 +181,7 @@
             const response = await fetch('/deposit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, amount }),
+                body: JSON.stringify({currentUser, amount }),
             });
         
             if (response.ok) {
@@ -200,7 +203,7 @@
             const response = await fetch('/withdraw', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, amount }),
+                body: JSON.stringify({currentUser, amount }),
             });
         
             if (response.ok) {
