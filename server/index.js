@@ -16,7 +16,23 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(express.json()); // Parse JSON bodies
 
 // Routes
-
+function randomID() {
+    let first = Math.floor(Math.random() * 90) + 10
+    let second = ""
+    const characters = "abcdefghijklmnopqrstuvwxyz";
+    const capCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for (let i = 0; i < 3; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      second += characters.charAt(randomIndex);
+    }
+    let third = Math.floor(Math.random() * 10)
+    let fourth = capCharacters.charAt(Math.floor(Math.random() * capCharacters.length));
+    let fifth = characters.charAt(Math.floor(Math.random() * characters.length));
+    let sixth = Math.floor(Math.random() * 90) + 10
+    console.log(second)
+    return(first.toString() + second + third.toString()+fourth+fifth+sixth.toString())
+    
+}
 // Home route
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: clientPath });
@@ -273,7 +289,7 @@ app.post('/deposit', async (req, res) => {
         }
 
         let deposits = user.deposits
-        let newDeposit = {id:"test", amount: amount, date: date, type: type}
+        let newDeposit = {id:randomID(), amount: amount, date: date, type: type}
         deposits.push(newDeposit)
 
         // Save users
@@ -299,7 +315,7 @@ app.post('/withdraw', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         let transactions = user.transactions
-        let newTransaction = {id:"test", name: name, category: category, price: price, date: date}
+        let newTransaction = {id:randomID(), name: name, category: category, price: price, date: date}
         transactions.push(newTransaction)
         // Save users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));

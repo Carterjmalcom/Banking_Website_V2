@@ -17,12 +17,21 @@
     margin:0;
     padding:0;
 }
-
+html, body {
+  height: 100%;  /* Ensure the body and html elements take up the full height of the screen */
+  margin: 0;  /* Remove default margin */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
     body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color:#fff0c7;
+    /* min-height: 100vh; */
+    max-width:100vw;
+    display: block;
+  min-height: 100%;  /* Ensure the body takes at least the full height of the viewport */
+  position: relative;
 }
 
 main {
@@ -30,7 +39,7 @@ main {
   /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  min-height:94.1vh;
+  /* min-height:100vh; */
   /* min-height: 80vh; */
   /* padding: 2rem; */
   /* width:100%; */
@@ -144,15 +153,23 @@ button#sign-out:hover {
 }
 
 footer {
-  background-color: #333;
+    background-color: #333;
   color: white;
   text-align: center;
   padding: 1.2rem;
-  /* margin-top: auto; */
   font-size: 0.9rem;
+  width: 100%;
+  position: absolute;  /* Position it relative to the body */
+  bottom: 0;  /* Stick it to the bottom */
 }
 
 footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer p {
   color: white;
   text-decoration: none;
   font-weight: bold;

@@ -93,22 +93,31 @@
                     type: 'pie'
                 }];
                 Plotly.newPlot(TESTER, data);
-            balanceElement.innerText = `Current Balance: $${(totalEarned-totalSpent).toFixed(2)}`;
+                if(totalEarned-totalSpent > 0){
+                    balanceElement.innerText = `Good Job! You Earned $${(totalEarned-totalSpent).toFixed(2)} More Than You Spent!`;
+                } else {
+                    balanceElement.innerText = `Bad Job! You Spent $${(Math.abs(totalEarned-totalSpent)).toFixed(2)} More Than You Earned!`;
+                }
+            
             }
         }
         
         // Switching between forms
         document.getElementById('go-to-sign-up').addEventListener('click', () => {
             showForm('sign-up-form');
+            updateProfile()
         });
         document.getElementById('go-to-sign-in').addEventListener('click', () => {
             showForm('sign-in-form');
+            updateProfile()
         });
         document.getElementById('go-to-deposit').addEventListener('click', () => {
             showForm('deposit-form');
+            updateProfile()
         });
         document.getElementById('go-to-withdraw').addEventListener('click', () => {
             showForm('withdraw-form');
+            updateProfile()
         });
         document.getElementById('go-to-profile').addEventListener('click', () => {
             showForm('profile-page');
@@ -116,9 +125,11 @@
         });
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
+            updateProfile()
         })
         document.getElementById('go-to-delete').addEventListener('click', () => {
             showForm('delete-form')
+            updateProfile()
         })
 
         
@@ -244,7 +255,7 @@
             });
         
             if (response.ok) {
-                const result = await response.json();
+                const result = await response;
                 currentBalance = result.balance;
                 const balanceElement = document.getElementById('balance-display');
                 balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
