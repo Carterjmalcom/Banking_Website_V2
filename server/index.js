@@ -56,6 +56,25 @@ app.post('/user-info', async (req, res) => {
     }
 });
 
+app.post('/user-info-current', async (req, res) => {
+    try {
+        const {currentUser} = req.body
+        // console.log(username)
+        const data = await fs.readFile(dataPath, 'utf8');
+
+        const users = JSON.parse(data);
+        const userIndex = users.findIndex(user => user.username === currentUser );
+        console.log(userIndex)
+        if (!users) {
+            throw new Error("Error no users available");
+        }
+        res.status(200).json(users[userIndex]);
+    } catch (error) {
+        console.error("Problem getting users" + error.message);
+        res.status(500).json({ error: "Problem reading users" });
+    }
+});
+
 
 // Form route
 app.get('/home', (req, res) => {
@@ -258,7 +277,7 @@ app.post('/deposit', async (req, res) => {
 // Withdraw Endpoint
 app.post('/withdraw', async (req, res) => {
     const { currentUser, name, category, price, date } = req.body;
-
+        
     try {
         const data = await fs.readFile(dataPath, 'utf8');
         const users = JSON.parse(data);
@@ -268,10 +287,12 @@ app.post('/withdraw', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        
+        let transactions = user.transactions
+        let newTransaction = {id:"test", name: name, category: category, price: price, date: date}
+        transactions.push(newTransaction)
         // Save users
         await fs.writeFile(dataPath, JSON.stringify(users, null, 2));
-        res.status(200).json({ balance: user.balance });
+        res.status(200);
     } catch (error) {
         console.error('Error updating balance:', error);
         res.status(500).send('Error processing withdrawal.');
