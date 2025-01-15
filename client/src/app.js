@@ -17,6 +17,9 @@
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
         })
+        document.getElementById('go-to-delete').addEventListener('click', () => {
+            showForm('delete-form')
+        })
         
         
         // Show form function
@@ -241,6 +244,32 @@
             // alert("Message is: " + data.message);
           } catch (error) {
             alert("Error updating user: " + error.message);
+          }
+        });
+
+        // Delete
+        document
+        .getElementById("delete-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("delete-username").value;
+          const password = document.getElementById("delete-password").value;
+          try {
+            const response = await fetch(`/user/${username}/${password}`, {
+              method: "DELETE",
+            });
+
+            if (response.ok) {
+              alert("User deleted successfully");
+            }
+            else {
+                throw new Error("Error with network");
+            }
+            const data = await response.text();
+            console.log(data);
+            renderUsers();
+          } catch (error) {
+            console.error("something went wrong" + error.message);
           }
         });
         

@@ -138,9 +138,9 @@ app.put('/update-user/:username/:password', async (req, res) => {
     }
 });
 
-app.delete('/user/:name/:powers', async (req, res) => {
+app.delete('/user/:username/:password', async (req, res) => {
     try {
-        const { name, powers } = req.params
+        const { username, password } = req.params
         // initalize an empty array of 'users'
         let users = [];
         // try to read the users.json file and cache as data
@@ -151,7 +151,7 @@ app.delete('/user/:name/:powers', async (req, res) => {
             return res.status(404).send('User data not found')
         }
         // cache the userIndex based on a matching name and email
-        const userIndex = users.findIndex(user => user.name === name && user.powers === powers);
+        const userIndex = users.findIndex(user => user.username === username && user.password === password);
         console.log(userIndex);
         if (userIndex === -1) {
             return res.status(404).send('User not found');
