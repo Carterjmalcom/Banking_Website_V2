@@ -1,18 +1,4 @@
-        // Switching between forms
-        document.getElementById('go-to-sign-up').addEventListener('click', () => {
-            showForm('sign-up-form');
-        });
-        document.getElementById('go-to-sign-in').addEventListener('click', () => {
-            showForm('sign-in-form');
-        });
-        document.getElementById('go-to-deposit').addEventListener('click', () => {
-            showForm('deposit-form');
-        });
-        document.getElementById('go-to-withdraw').addEventListener('click', () => {
-            showForm('withdraw-form');
-        });
-        document.getElementById('go-to-profile').addEventListener('click', async () => {
-            showForm('profile-page');
+        async function updateProfile(){
             const userResponse = await fetch('/user-info-current', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -22,7 +8,6 @@
                 const depositResult = await userResponse.json();
                 let currentBalance = depositResult.balance
                 const balanceElement = document.getElementById('balance-display');
-                balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
                 let transactions = depositResult.transactions
                 let deposits = depositResult.deposits
                 const profilePage = document.getElementById('profile-page')
@@ -35,6 +20,8 @@
                 profilePage.appendChild(transactionContainer)
                 let values = []
                 let labels = []
+                let totalEarned = 0
+                let totalSpent = 0
                 for (let i = 0; i < transactions.length; i++) {
                     const div = document.createElement("div");
                     div.classList.add("transaction-div")
@@ -54,12 +41,14 @@
                     categoryP.appendChild(categoryNode);
                     div.appendChild(categoryP)
                     labels.push(transactions[i].category)
+                    
                     // PRICE
                     const priceP = document.createElement("p");
                     const priceNode = document.createTextNode(`Price: ${transactions[i].price}`);
                     priceP.appendChild(priceNode);
                     div.appendChild(priceP)
                     values.push(transactions[i].price)
+                    totalSpent += parseFloat(transactions[i].price)
                     // DATE
                     const dateP = document.createElement("p");
                     const dateNode = document.createTextNode(`Date: ${transactions[i].date}`);
@@ -83,6 +72,7 @@
                     const amountNode = document.createTextNode(`Amount: ${deposits[i].amount}`);
                     amountP.appendChild(amountNode);
                     div.appendChild(amountP)
+                    totalEarned += parseFloat(deposits[i].amount)
                     // DATE
                     const dateP = document.createElement("p");
                     const dateNode = document.createTextNode(`Date: ${deposits[i].date}`);
@@ -103,7 +93,26 @@
                     type: 'pie'
                 }];
                 Plotly.newPlot(TESTER, data);
+            balanceElement.innerText = `Current Balance: $${(totalEarned-totalSpent).toFixed(2)}`;
             }
+        }
+        
+        // Switching between forms
+        document.getElementById('go-to-sign-up').addEventListener('click', () => {
+            showForm('sign-up-form');
+        });
+        document.getElementById('go-to-sign-in').addEventListener('click', () => {
+            showForm('sign-in-form');
+        });
+        document.getElementById('go-to-deposit').addEventListener('click', () => {
+            showForm('deposit-form');
+        });
+        document.getElementById('go-to-withdraw').addEventListener('click', () => {
+            showForm('withdraw-form');
+        });
+        document.getElementById('go-to-profile').addEventListener('click', () => {
+            showForm('profile-page');
+            updateProfile()
         });
         document.getElementById('go-to-update').addEventListener('click', () => {
             showForm('update-form')
@@ -174,6 +183,7 @@
                 document.getElementById('go-to-sign-in').disabled = true
                 document.getElementById('go-to-sign-up').disabled = true
                 document.getElementById('sign-out').disabled = false;
+                updateProfile()
             } else {
                 document.getElementById('sign-in-message').innerText = result.message;
             }
@@ -208,6 +218,7 @@
                 // currentBalance = result.balance;
                 // const balanceElement = document.getElementById('balance-display');
                 // balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+                updateProfile()
                 alert('Deposit successful!');
             } else {
                 alert('Error processing deposit');
@@ -237,6 +248,7 @@
                 currentBalance = result.balance;
                 const balanceElement = document.getElementById('balance-display');
                 balanceElement.innerText = `Current Balance: $${currentBalance.toFixed(2)}`;
+                updateProfile()
                 alert('Withdrawal successful!');
             } else {
                 const error = await response.json();

@@ -227,8 +227,22 @@ footer a:hover {
     display: flex;
     flex-wrap:wrap;
     gap:20px;
+    /* background-color: #e60000; */
 }
 .transaction-div {
+    margin: 5px;
+    gap: 10px;
+    text-align: center;
+    background-color: #ccc;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 30px;
+    line-height: 2;
+}
+#tester{
+    width: 400px;
+    height: 400px;
     margin: 5px;
     gap: 10px;
     text-align: center;
@@ -274,9 +288,16 @@ footer a:hover {
         <!-- Profile Page -->
         <div id="profile-page" class="form-container hidden">
             <h2>Profile</h2>
+            <div>
+                <h2>Deposits</h2>
+                <div id="deposit-container"></div>
+                <h2>Transactions</h2>
             <div id="transaction-container"></div>
-            <div id="deposit-container"></div>
-            <div id="tester"></div>
+            
+            </div>
+            <div id="tester">
+
+            </div>
         </div>
 
         <!-- Sign-Up Form -->
